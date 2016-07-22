@@ -5,6 +5,7 @@
     .module('lawOrderPie')
     .controller('mainController', function(API) {
        	var vm = this;
+        var seasonArray =[];
 
       	var ctx = document.getElementById("myChart");
 
@@ -13,7 +14,7 @@
       	originalSeasons.then(function(response){
         var data = response.data.reverse();
 
-        return parseInt(data[0].number);      
+        seasonArray.push(parseInt(data[0].number));       
 		      
     	 });
 
@@ -22,9 +23,9 @@
         
         lASeasons.then(function(response){
         var data = response.data.reverse();
-
-        return parseInt(data[0].number);      
-          
+       
+        seasonArray.push(parseInt(data[0].number)); 
+       
       });
 
         var uKSeasons = API.getPieData('1262');
@@ -32,7 +33,7 @@
         uKSeasons.then(function(response){
         var data = response.data.reverse();
 
-        return parseInt(data[0].number);   
+        seasonArray.push(parseInt(data[0].number));   
           
       });
 
@@ -41,7 +42,7 @@
         cISeasons.then(function(response){
         var data = response.data.reverse();
 
-        return parseInt(data[0].number);  
+        seasonArray.push(parseInt(data[0].number));  
           
       });
 
@@ -50,7 +51,7 @@
         sVUSeasons.then(function(response){
         var data = response.data.reverse();
 
-        return parseInt(data[0].number);       
+        seasonArray.push(parseInt(data[0].number));       
           
       });              
 
@@ -59,9 +60,7 @@
         tBJSeasons.then(function(response){
         var data = response.data.reverse();
 
-        return parseInt(data[0].number);
-          
-      });
+        seasonArray.push(parseInt(data[0].number));
 
         var data = {
           labels: [
@@ -84,17 +83,23 @@
                       'rgba(153, 102, 255, 1)',
                       'rgba(255, 159, 64, 1)'
                   ],
-                  // data: [originalSeasons, lASeasons, uKSeasons, cISeasons, sVUSeasons, tBJSeasons],
-                  data: [20, 1, 8, 10, 18, 1],
+                  data: seasonArray,
               }
           ]
         };
 
         var myBarChart = new Chart(ctx, {
-          type: 'doughnut',
+          type: 'pie',
           data: data,
         });
 
+
+          
+      });
+
+        
+
+        
 
     });
 })();
