@@ -5,72 +5,68 @@
     .module('lawOrderPie')
     .controller('mainController', function(API) {
        	var vm = this;
-        var seasonArray =[];
+
+        var nameArray = [];
+        var seasonArray = [];
 
       	var ctx = document.getElementById("myChart");
 
-      	var originalSeasons = API.getPieData('562');
+      	var originalSeasons = API.getPieData('law and order');
       	
-      	originalSeasons.then(function(response){
-        var data = response.data.reverse();
-
-        seasonArray.push(parseInt(data[0].number));       
+      	originalSeasons.then(function(response){     
+        var data = response.data._embedded.seasons.reverse();
+        seasonArray.push(data[0].number);
+        nameArray.push(response.data.name);
+      
 		      
     	 });
 
 
-        var lASeasons = API.getPieData('867');
+        var lASeasons = API.getPieData('law and order los angeles');
         
         lASeasons.then(function(response){
-        var data = response.data.reverse();
-       
-        seasonArray.push(parseInt(data[0].number)); 
+        var data = response.data._embedded.seasons.reverse();
+        seasonArray.push(data[0].number);
+        nameArray.push(response.data.name);
        
       });
 
-        var uKSeasons = API.getPieData('1262');
+        var uKSeasons = API.getPieData('law and order uk');
         
         uKSeasons.then(function(response){
-        var data = response.data.reverse();
-
-        seasonArray.push(parseInt(data[0].number));   
+        var data = response.data._embedded.seasons.reverse();
+        seasonArray.push(data[0].number);
+        nameArray.push(response.data.name); 
           
       });
 
-        var cISeasons = API.getPieData('786');
+        var cISeasons = API.getPieData('law and order criminal intent');
         
         cISeasons.then(function(response){
-        var data = response.data.reverse();
-
-        seasonArray.push(parseInt(data[0].number));  
+        var data = response.data._embedded.seasons.reverse();
+        seasonArray.push(data[0].number);
+        nameArray.push(response.data.name); 
           
       });
 
-        var sVUSeasons = API.getPieData('103');
+        var sVUSeasons = API.getPieData('law and order svu');
         
         sVUSeasons.then(function(response){
-        var data = response.data.reverse();
-
-        seasonArray.push(parseInt(data[0].number));       
+        var data = response.data._embedded.seasons.reverse();
+        seasonArray.push(data[0].number);
+        nameArray.push(response.data.name);    
           
       });              
 
-        var tBJSeasons = API.getPieData('3283');
+        var tBJSeasons = API.getPieData('law and order trial by jury');
         
         tBJSeasons.then(function(response){
-        var data = response.data.reverse();
-
-        seasonArray.push(parseInt(data[0].number));
+        var data = response.data._embedded.seasons.reverse();
+        seasonArray.push(data[0].number);
+        nameArray.push(response.data.name);
 
         var data = {
-          labels: [
-            "Law and Order - Original",
-            "Law and Order: LA",
-            "Law and Order: UK",
-            "Law and Order: CI",
-            "Law and Order: SVU",
-            "Law and Order: Trial by Jury",
-          ],          
+          labels: nameArray,          
 
           datasets: [
               {
